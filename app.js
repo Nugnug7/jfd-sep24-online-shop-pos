@@ -4,7 +4,8 @@ const port = 3000
 
 const c_beranda =require('./controller/c_beranda')
 
-app.use( express.urlencoded({extended:false}) )
+app.use( express.urlencoded({extended:false}))
+app.use(express.static('public'))
 app.set('view engine', 'ejs')
 app.set('views', './view')
 
