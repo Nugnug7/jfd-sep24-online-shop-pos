@@ -1,4 +1,5 @@
 const mysql = require('mysql2')
+
 // Menyambungkan ke sql 
 const db = mysql.createConnection ({
     host        : 'localhost',
@@ -20,4 +21,9 @@ function eksekusi (script_sql_dan_data) {
             }
          })
     })
+}
+
+
+module.exports = {
+    db, eksekusi
 }
