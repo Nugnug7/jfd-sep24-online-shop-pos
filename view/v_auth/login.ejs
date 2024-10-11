@@ -8,7 +8,10 @@
           <br>
           <!-- Notifikasi apabila email atau password tidak sesuai -->
           <% if (typeof notifikasi !== 'undefind' ) { %>
-          <%= notifikasi  %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <%= notifikasi  %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>  
           <% } %>
           
           <h1 class="h3 mt-3 mb-3 fw-normal">Silahkan masuk</h1>
