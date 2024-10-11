@@ -20,8 +20,9 @@ module.exports =
             if (email_exist.length > 0) {
         // Cek Password
             let password_cocok = bcrypt.compareSync(form_password, email_exist[0].password)
-            if (password_cocok ) {
+            if (password_cocok) {
                 // Arahkan ke halaman utama sistem
+                req.session.user = email_exist
                 res.redirect('/toko')
             } else {
                 // tendang ke halaman login
@@ -33,6 +34,18 @@ module.exports =
         let pesan = (`Email anda belum terdaftar, silahkan register lebih dulu`)
         res.redirect(`/auth/login?notif= ${pesan}`)
         }
-    }
+    },
+
+    cek_login: function (req,res,next) {
+        if (req.session.user) {
+            next()
+        } else {
+            // Lempar ke halaman login
+            let pesan = (`Sesi anda sudah habis silahkan login dulu`)
+            res.redirect(`/auth/login?notif= ${pesan}`)
+        }
+    },
+    
 
 }
+
