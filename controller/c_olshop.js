@@ -17,4 +17,13 @@ module.exports =
         res.render('v_olshop/produk/index', data)
     },
 
+    
+    halaman_form_tambah: async function (req,res) {
+        let data = {
+            kategoriProduk: await m_prod_kategori.getSemua()
+        }
+        res.render('v_olshop/produk/form-tambah', data)
+    },
+
+
 }
