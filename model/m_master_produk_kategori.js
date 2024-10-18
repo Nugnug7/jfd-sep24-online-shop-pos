@@ -9,6 +9,6 @@ module.exports =
         let sqlSyntax = mysql.format (
             `select * from master_produk_kategori`
         )
-        return eksekusiS(sqlSyntax)
+        return eksekusi(sqlSyntax)
     }
 }
