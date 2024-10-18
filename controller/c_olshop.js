@@ -9,4 +9,9 @@ module.exports =
         }
         res.render('v_olshop/beranda', data)
     },
+
+    halaman_index_produk: async function (req,res) {
+        res.render('v_olshop/produk/index')
+    },
+
 }
