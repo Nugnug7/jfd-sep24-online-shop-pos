@@ -11,7 +11,10 @@ module.exports =
     },
 
     halaman_index_produk: async function (req,res) {
-        res.render('v_olshop/produk/index')
+        let data = {
+            kategoriProduk: await m_prod_kategori.getSemua()
+        }
+        res.render('v_olshop/produk/index', data)
     },
 
 }
