@@ -16,15 +16,15 @@ module.exports =
         return eksekusi(sqlSyntax)
     },
 
-    insert: function(req, filename_foto1) {
+    insert: function(req, filename_foto1, filename_foto2, filename_foto3 ) {
         let sqlData = {
             nama            : req.body.form_nama,
             harga           : req.body.form_harga,
             stok            : req.body.form_stok,
             kategori_id     : req.body.form_kategori,
             foto1           : filename_foto1,
-            foto2           : req.body.form_foto2,
-            foto3           : req.body.form_foto3,
+            foto2           : filename_foto2,
+            foto3           : filename_foto3,
             video           : req.body.form_video,
             deskripsi       : req.body.form_deskripsi,
             spesifikasi     : req.body.form_spesifikasi,
