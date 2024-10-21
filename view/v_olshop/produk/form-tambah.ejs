@@ -25,11 +25,10 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">kategori</label>
-                    <select name="form_katgori" class="form-control">
-                        <option value="" selected>--pilih--</option>
-                        <option value="">kategori a</option>
-                        <option value="">kategori b</option>
-                        <option value="">kategori c</option>
+                    <select name="form_kategori" class="form-control">
+                        <% for (const i in kategoriProduk) { %>
+                            <option value="<%= kategoriProduk[i].id %>"><%= kategoriProduk[i].nama %></option>
+                        <% } %>
                     </select>
                 </div>
             </div>
