@@ -3,6 +3,7 @@ const app           = express()
 const port          = 3000
 const cookieParser  = require('cookie-parser')
 const session       = require('express-session')
+const fileupload    = require('express-fileupload')
 const c_beranda     = require('./controller/c_beranda')
 const c_auth        = require('./controller/c_auth')
 const cek_login     = c_auth.cek_login
@@ -26,6 +27,8 @@ app.use(session({
 
 app.use( express.urlencoded({extended:false}))
 app.use(express.static('public'))
+app.use(fileupload())
+
 app.set('view engine', 'ejs')
 app.set('views', './view')
 

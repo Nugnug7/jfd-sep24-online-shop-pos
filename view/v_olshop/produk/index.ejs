@@ -39,7 +39,9 @@
                     <td><%= produkJual[i].kategori_nama %></td>
                     <td><%= produkJual[i].harga %></td>
                     <td><%= produkJual[i].stok %></td>
-                    <td><%= produkJual[i].foto1 %></td>
+                    <!-- Menampilkan gambar yang di upload -->
+                    <td><img src="/upload/produk-foto/<%= produkJual[i].foto1 %>" alt="" height="70px"></td>
+                    <!-- Menampilkan gambar yang di upload -->
                     <td>
                         <a href="/olshop/produk/detail/<%= produkJual[i].id %>" class="btn btn-sm btn-outline-info mx-1">
                             <i class="fa-solid fa-eye"></i>
