@@ -40,9 +40,9 @@ module.exports =
         let email           = req.session.user[0].email.replaceAll('.','-')
         let datetime        = moment().format('YYYYMMDD_HHmmss')
         
-        let filename_foto1  = email + '_' + datetime + '_' + foto1.name
-        let filename_foto2  = email + '_' + datetime + '_' + foto2.name
-        let filename_foto3  = email + '_' + datetime + '_' + foto3.name
+        let filename_foto1  = email + '_' + datetime + '_' + ((foto1) ? foto1.name : '')
+        let filename_foto2  = email + '_' + datetime + '_' + ((foto2) ? foto2.name : '')
+        let filename_foto3  = email + '_' + datetime + '_' + ((foto3) ? foto3.name : '')
         
         let folder1_simpan  = path.join(__dirname, '../public/upload/produk-foto', filename_foto1)
         let folder2_simpan  = path.join(__dirname, '../public/upload/produk-foto', filename_foto2)
@@ -56,26 +56,33 @@ module.exports =
                 pesan_upload += `<br>foto 1 berhasil upload`
             }
         })
-        foto2.mv(folder2_simpan, async function(err) {
-            if (err) {
-                pesan_upload += `<br>foto 2 gagal upload`
-            } else {
-                pesan_upload += `<br>foto 2 berhasil upload`
-            }
-        })
-        foto3.mv(folder3_simpan, async function(err) {
-            if (err) {
-                pesan_upload += `<br>foto 3 gagal upload`
-            } else {
-                pesan_upload += `<br>foto 3 berhasil upload`
-            }
-        })
+
+        if (foto2) {
+            foto2.mv(folder2_simpan, async function(err) {
+                if (err) {
+                    pesan_upload += `<br>foto 2 gagal upload`
+                } else {
+                    pesan_upload += `<br>foto 2 berhasil upload`
+                }
+            })
+        }
+
+
+        if (foto3) {
+            foto3.mv(folder3_simpan, async function(err) {
+                if (err) {
+                    pesan_upload += `<br>foto 3 gagal upload`
+                } else {
+                    pesan_upload += `<br>foto 3 berhasil upload`
+                }
+            })
+        }
 
         try {
             
             let insert = await m_master_produk.insert( req, filename_foto1, filename_foto2, filename_foto3 )
             if (insert.affectedRows > 0) {
-                res.redirect('/olshop/produk?notif=Berhasil input produk baru')
+                res.redirect(`/olshop/produk?notif=Berhasil input produk baru${pesan_upload}`)
             }
         } catch (error) {
             throw error
