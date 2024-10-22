@@ -22,7 +22,6 @@ module.exports =
         res.render('v_olshop/produk/index', data)
     },
 
-    
     halaman_form_tambah: async function (req,res) {
         let data = {
             kategoriProduk: await m_prod_kategori.getSemua()
@@ -30,7 +29,8 @@ module.exports =
         res.render('v_olshop/produk/form-tambah', data)
     },
 
-   proses_insert_produk: async function(req,res) {
+
+    proses_insert_produk: async function(req,res) {
         let foto1            = req.files.form_foto1
         let foto2            = req.files.form_foto2
         let foto3            = req.files.form_foto3
@@ -88,4 +88,19 @@ module.exports =
             throw error
         }
     },
+
+    detail_produk: async function(req,res) {
+        let id      = req.params.id_produk
+        let data     = {
+
+            kategoriProduk: await m_prod_kategori.getSemua(),
+            produkJual: await m_master_produk.getSatu( id ),
+            moment: moment,
+            }
+        res.render('v_olshop/produk/detail', data)
+    },
+
+
+
+
 }
