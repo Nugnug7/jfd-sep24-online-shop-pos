@@ -2,13 +2,19 @@ const path            = require('path')
 const moment          = require('moment')
 const m_prod_kategori = require('../model/m_master_produk_kategori')
 const m_master_produk = require('../model/m_master_produk')
+const m_trans_keranjang = require('../model/m_trans_keranjang')
 
 
 module.exports =
 {
     halaman_beranda: async function (req,res) {
         let data = {
-            kategoriProduk: await m_prod_kategori.getSemua()
+            kategoriProduk          : await m_prod_kategori.getSemua(),
+            produk_diKeranjang      : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
+            produkJual              : await m_master_produk.getSemua(),
+            moment                  : moment,
+            notifikasi              : req.query.notif,
+            produkExist_diKeranjang : await m_trans_keranjang.cekProdukExist(req),
         }
         res.render('v_olshop/beranda', data)
     },
@@ -16,6 +22,7 @@ module.exports =
     halaman_index_produk: async function (req,res) {
         let data = {
             kategoriProduk  : await m_prod_kategori.getSemua(),
+            produk_diKeranjang  : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
             produkJual      : await m_master_produk.getSemua(),
             notifikasi      : req.query.notif,
         }
@@ -24,19 +31,20 @@ module.exports =
 
     halaman_form_tambah: async function (req,res) {
         let data = {
-            kategoriProduk: await m_prod_kategori.getSemua()
+            kategoriProduk      : await m_prod_kategori.getSemua(),
+            produk_diKeranjang  : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
         }
         res.render('v_olshop/produk/form-tambah', data)
     },
 
-
+    // Proses Upload Foto
     proses_insert_produk: async function(req,res) {
         let foto1            = req.files.form_foto1
         let foto2            = req.files.form_foto2
         let foto3            = req.files.form_foto3
 
 
-    // ganti nama file asli
+    // Ganti nama file asli
         let email           = req.session.user[0].email.replaceAll('.','-')
         let datetime        = moment().format('YYYYMMDD_HHmmss')
         
@@ -88,19 +96,41 @@ module.exports =
             throw error
         }
     },
-
+     
+     // Proses tombol detail produk
     detail_produk: async function(req,res) {
-        let id      = req.params.id_produk
-        let data     = {
-
+        let id          = req.params.id_produk
+        let data        = {
             kategoriProduk: await m_prod_kategori.getSemua(),
+            produk_diKeranjang  : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
             produkJual: await m_master_produk.getSatu( id ),
             moment: moment,
-            }
+
+        }
         res.render('v_olshop/produk/detail', data)
     },
 
+    keranjang_input: async function(req,res) {
+        try {
+            let insert  = await m_trans_keranjang.masukkan(req)
+            if (insert.affectedRows > 0) {
+                res.redirect(`/olshop?notif=Berhasil masukkan produk ke keranjang`)
+            }
+        } catch (error) {
+            res.redirect(`/olshop?notif=${error.message}`)
+        }
 
+    },
+
+    keranjang_list : async function(req,res) {
+        let data = {
+        kategoriProduk          : await m_prod_kategori.getSemua(),
+        produk_diKeranjang      : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
+        detailProduk_keranjang  : await m_trans_keranjang.
+        moment                  : moment,
+    }
+        res.render('v_olshop/keranjang/list', data)
+    },   
 
 
 }

@@ -11,6 +11,7 @@ const c_toko        = require('./controller/c_toko')
 const c_olshop      = require('./controller/c_olshop')
 
 
+
 // Settingan session untuk login
 app.use(cookieParser('secret'))
 app.use(session({
@@ -44,7 +45,8 @@ app.get('/olshop/produk', cek_login, c_olshop.halaman_index_produk)
 app.get('/olshop/produk/tambah', cek_login, c_olshop.halaman_form_tambah)
 app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produk)
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
-
+app.get('/olshop/keranjang/input/:id_produk', cek_login, c_olshop.keranjang_input)
+app.get('/olshop/keranjang/list', cek_login, c_olshop.keranjang_list)
 
 
 
