@@ -1,5 +1,4 @@
 <%- include('../v_layout/head') %>
-<!-- header layout-->
 <%- include('../v_layout/olshop-header') %>
 
 
@@ -48,11 +47,11 @@
     <div class="row">
                 <% for (const i in produkJual) { %>
                 <%
-                let maxlength = 20
-                let namaProdukTrim = produkJual[i].nama.substring(0, maxlength)
-                if (produkJual[i].nama.length > maxlength) {
-                    namaProdukTrim += '...'
-                }
+                        let maxlength = 20
+                        let namaProdukTrim = produkJual[i].nama.substring(0, maxlength)
+                        if (produkJual[i].nama.length > maxlength) {
+                            namaProdukTrim += '...'
+                        }
                 %>
 
           <div class="col-lg-3 mb-4">
@@ -73,8 +72,6 @@
                                       <a href="/olshop/produk/detail/<%= produkJual[i].id %>" class="btn btn-sm btn-outline-secondary text-capitalize mb-2">lihat produk</a>
                                   </div>
                                   <div class="col-6 text-end">
-                            
-                                  
                                         <%
                                         let produkSudahAdaDiKeranjang = produkExist_diKeranjang.find(o => o.id_produk === produkJual[i].id);
                                         %>
