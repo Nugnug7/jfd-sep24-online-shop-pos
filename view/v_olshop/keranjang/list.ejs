@@ -27,7 +27,7 @@
                                             <br>
                                             <!-- Inputan tersembuyi -->
                                             <input type="hidden" class="harga_satuan" id="harga<%= i %>" value="<%= detailProduk_keranjang[i].harga %>">
-                                            <input type="hidden" id="harga_kalkulasi<%= i %>">
+                                            <input type="hidden" class="harga_kalkulasi" id="harga_kalkulasi<%= i %>" value="<%= detailProduk_keranjang[i].harga %>">
                                             <small class="card-text">stok: <%= detailProduk_keranjang[i].stok %></small><br>
                                         </div>
                                         <div class="col-6">
@@ -56,11 +56,11 @@
                         <h5><b>Ringkasan belanja</b></h5>
                         <div class="row">
                             <div class="col-6">Total Harga</div>
-                            <div class="col-6 text-end total_harga"></div>
+                            <div class="col-6 text-end"><span id="harga_keseluruhan">zzz</span></div>
                         </div>
                         <div class="row">
                             <div class="col-6">Total Qty</div>
-                            <div class="col-6 text-end">xxx</div>
+                            <div class="col-6 text-end"><span id="qty_keseluruhan">xxx</span></div>
                         </div>
                         <hr>
                         <div class="row">
@@ -76,23 +76,39 @@
             </div>
 
             <script>
-                $(document).on('change', '.qty_satuan' , function() {
-                    let qty             = $(this).val()
-                    let idkeranjang     = $(this).data('idkeranjang')
-                    let harga           = $(`#harga${idkeranjang}`).val()
-                    let harga_kalkulasi = qty * harga
-                    // Assign ke html
-                    $(`#harga_text${idkeranjang}`).html('Rp'+Number(harga_kalkulasi).toLocaleString('id-ID'))
-                    // assign ke inputan kalkulasi
-                    $(`#harga_kalkulasi${idkeranjang}`).val(harga_kalkulasi)
-
-                    // Ambil semua qty yang ada di class qty_satuan
-                    let qty_satuan = $('qty_satuan')
-                    let qty_total  = 0
-                    for (const i in qty_satuan) {
-                        let qty_value = number ((qty_satuan[i].val))
-                    }
-                    console.log(qty_total)
+                function hitung_qty_keseluruhan() {
+            // ambil semua qty yg ada di class qty_satuan
+            let qty_total = Number(0)
+            $('.qty_satuan').each(function(){
+                qty_total += Number(this.value)
+            })
+            // assign totalnya ke element html yg idnya qty_keseluruhan
+            $('#qty_keseluruhan').html(qty_total)
+        }
+        function hitung_harga_keseluruhan() {
+            // ambil semua harga yg ada di class harga_kalkulasi
+            let harga_total = Number(0)
+            $('.harga_kalkulasi').each(function(){
+                harga_total += Number(this.value)
+            })
+            // assign totalnya ke element html yg idnya harga_keseluruhan
+            $('#harga_keseluruhan').html(`Rp ${harga_total.toLocaleString('id-ID')}`)
+        }
+        $(document).ready( function(){
+            hitung_qty_keseluruhan()
+            hitung_harga_keseluruhan()
+            $(document).on('change', '.qty_satuan' , function() {
+                let qty             = $(this).val()
+                let idkeranjang     = $(this).data('idkeranjang')
+                let harga           = $(`#harga${idkeranjang}`).val()
+                let harga_kalkulasi = qty * harga
+                // assign ke html
+                $(`#harga_text${idkeranjang}`).html('Rp'+Number(harga_kalkulasi).toLocaleString('id-ID'))
+                // assign ke inputan kalkulasi
+                $(`#harga_kalkulasi${idkeranjang}`).val(harga_kalkulasi)
+                hitung_qty_keseluruhan()
+                hitung_harga_keseluruhan()
+            })
                 })
             </script>
         </div>
