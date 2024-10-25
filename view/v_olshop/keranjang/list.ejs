@@ -6,6 +6,12 @@
 <body class="bg-body-secondary">
     <div class="container my-5">
         <h1 class="mb-4">Keranjang belanjaan kamu</h1>
+        <% if (typeof notifikasi !== 'undefined') { %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%- notifikasi %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
         <div class="row">
             <div class="col-lg-8">
                 <% for( let i in detailProduk_keranjang ) { %>
@@ -33,9 +39,13 @@
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <a href="" class="btn btn-sm btn-outline-danger">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </a>
+                                                    <!-- Button untuk hapus keranjang belanjaan -->
+                                                    <form action="/olshop/keranjang/hapus/<%= detailProduk_keranjang[i].id %>" method="post">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                            onclick="return confirm('Hapus <%= detailProduk_keranjang[i].produk_nama %> dari keranjang ??')">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                                 <div class="col-10">
                                                     <input type="number" name="form_qty" value="<%= detailProduk_keranjang[i].qty %>" class="form-control form-control-sm qty_satuan" data-idkeranjang="<%= i %>">

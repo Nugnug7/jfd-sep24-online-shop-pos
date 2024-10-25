@@ -47,6 +47,7 @@ app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produ
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
 app.get('/olshop/keranjang/input/:id_produk', cek_login, c_olshop.keranjang_input)
 app.get('/olshop/keranjang/list', cek_login, c_olshop.keranjang_list)
+app.post('/olshop/keranjang/hapus/:id_keranjang', c_olshop.keranjang_hapus)
 
 
 

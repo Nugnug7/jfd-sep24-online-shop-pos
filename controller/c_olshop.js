@@ -128,8 +128,23 @@ module.exports =
         produk_diKeranjang      : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
         detailProduk_keranjang  : await m_trans_keranjang.getDetailProduk_diKeranjang(req),
         moment                  : moment,
+        notifikasi              : req.query.notif,
     }
         res.render('v_olshop/keranjang/list', data)
+    },   
+
+   
+    keranjang_hapus: async function(req,res) {
+    // Proses hapus data keranjang
+    try {
+        let hapusData = await m_trans_keranjang.hapus(req)
+        if (hapusData.affectedRows > 0) {
+            res.redirect(`/olshop/keranjang/list?notif=Berhasil hapus produk dari keranjang`)
+        }
+    } catch (error) {
+        res.redirect(`/olshop/keranjang/list?notif=${error.message}`)
+    }
+
     },   
 
 
