@@ -47,13 +47,21 @@ module.exports =
             res.redirect(`/auth/login?notif= ${pesan}`)
         }
     },
-    
+
+    proses_logout: function(req,res) {
+        req.session.destroy( (err) => {
+            res.redirect('/') // will always fire after session is destroyed
+        })
+    },
+
     halaman_daftar: function(req,res) {
         let data = {
             notifikasi: req.query.notif,
         }
         res.render('v_auth/register', data)
     },
+    
+
     
     proses_register:  async function(req,res) {
     // Ambil inputan dari form daftar

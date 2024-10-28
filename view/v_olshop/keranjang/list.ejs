@@ -6,6 +6,7 @@
 <body class="bg-body-secondary">
     <div class="container my-5">
         <h1 class="mb-4">Keranjang belanjaan kamu</h1>
+        <!-- Notifikasi  -->
         <% if (typeof notifikasi !== 'undefined') { %>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <%- notifikasi %>
@@ -42,8 +43,7 @@
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalHapus"
                                                         data-id-keranjang="<%= detailProduk_keranjang[i].id %>"
-                                                        data-nama-produk="<%= detailProduk_keranjang[i].produk_nama %>"
-                                                        >
+                                                        data-nama-produk="<%= detailProduk_keranjang[i].produk_nama %>">
                                                         <i class="fa-solid fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -58,32 +58,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 <% } %>
             </div>
              <!-- kalkulasi harga & qty belanjaan -->
              <div class="col-lg-4">
                 <div class="card border-0">
                     <div class="card-body">
-                        <h5><b>Ringkasan belanja</b></h5>
-                        <div class="row">
-                            <div class="col-6">Total Harga</div>
-                            <div class="col-6 text-end"><span id="harga_keseluruhan">zzz</span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">Total Qty</div>
-                            <div class="col-6 text-end"><span id="qty_keseluruhan">xxx</span></div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-12">
-                                <% if (user_id_role == 2) { %>
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-block btn-success">Bayar</button>
-                                    </div>
-                                <% } %>
+                            <h5><b>Ringkasan belanja</b></h5>
+                            <div class="row">
+                                <div class="col-6">Total Harga</div>
+                                <div class="col-6 text-end"><span id="harga_keseluruhan">zzz</span></div>
                             </div>
-                                
+                            <div class="row">
+                                <div class="col-6">Total Qty</div>
+                                <div class="col-6 text-end"><span id="qty_keseluruhan">xxx</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <% if (user_id_role == 2) { %>
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-block btn-success">Bayar</button>
+                                        </div>
+                                    <% } %>
+                                </div>    
                             </div>
                         </div>
                     </div>
@@ -91,6 +89,8 @@
             </div>
         </form>
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="modalHapus" tabindex="-1" aria-labelledby="modalHapusLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -111,57 +111,61 @@
         </div>
     </div>
 
+    <script>
 
-    </div>
+            function hitung_qty_keseluruhan() {
+                // ambil semua qty yg ada di class qty_satuan
+                let qty_total = Number(0)
+                $('.qty_satuan').each(function(){
+                    qty_total += Number(this.value)
+                })
+            
+                // assign totalnya ke element html yg idnya qty_keseluruhan
+                $('#qty_keseluruhan').html(qty_total)
+            }
 
-            <script>
-                function hitung_qty_keseluruhan() {
-            // ambil semua qty yg ada di class qty_satuan
-            let qty_total = Number(0)
-            $('.qty_satuan').each(function(){
-                qty_total += Number(this.value)
-            })
-            // assign totalnya ke element html yg idnya qty_keseluruhan
-            $('#qty_keseluruhan').html(qty_total)
-        }
-        function hitung_harga_keseluruhan() {
-            // ambil semua harga yg ada di class harga_kalkulasi
-            let harga_total = Number(0)
-            $('.harga_kalkulasi').each(function(){
-                harga_total += Number(this.value)
-            })
-            // assign totalnya ke element html yg idnya harga_keseluruhan
-            $('#harga_keseluruhan').html(`Rp ${harga_total.toLocaleString('id-ID')}`)
-        }
-        $(document).ready( function(){
-            hitung_qty_keseluruhan()
-            hitung_harga_keseluruhan()
-            $(document).on('change', '.qty_satuan' , function() {
-                let qty             = $(this).val()
-                let idkeranjang     = $(this).data('idkeranjang')
-                let harga           = $(`#harga${idkeranjang}`).val()
-                let harga_kalkulasi = qty * harga
-                // assign ke html
-                $(`#harga_text${idkeranjang}`).html('Rp'+Number(harga_kalkulasi).toLocaleString('id-ID'))
-                // assign ke inputan kalkulasi
-                $(`#harga_kalkulasi${idkeranjang}`).val(harga_kalkulasi)
+            function hitung_harga_keseluruhan() {
+           
+                // ambil semua harga yg ada di class harga_kalkulasi
+                let harga_total = Number(0)
+                $('.harga_kalkulasi').each(function(){
+                    harga_total += Number(this.value)
+                })
+                // assign totalnya ke element html yg idnya harga_keseluruhan
+                $('#harga_keseluruhan').html(`Rp ${harga_total.toLocaleString('id-ID')}`)
+            }
+
+            $(document).ready( function(){
                 hitung_qty_keseluruhan()
                 hitung_harga_keseluruhan()
-            })
+
+                $(document).on('change', '.qty_satuan' , function() {
+                    let qty             = $(this).val()
+                    let idkeranjang     = $(this).data('idkeranjang')
+                    let harga           = $(`#harga${idkeranjang}`).val()
+                    let harga_kalkulasi = qty * harga
+                    
+                    // assign ke html
+                    $(`#harga_text${idkeranjang}`).html('Rp'+Number(harga_kalkulasi).toLocaleString('id-ID'))
+                    
+                    // assign ke inputan kalkulasi
+                    $(`#harga_kalkulasi${idkeranjang}`).val(harga_kalkulasi)
+                    hitung_qty_keseluruhan()
+                    hitung_harga_keseluruhan()
+                })
                 })
                 
                 
                 $(document).on('click', '.tombol_hapus', function() {
-                let idkeranjang = $(this).data('id-keranjang')
-                let namaproduk  = $(this).data('nama-produk')
-                $('#form_hapus_keranjang').attr('action', `/olshop/keranjang/hapus/${idkeranjang}`)
-                $('#hapus_nama_produk').html(namaproduk)
-            })
+                    let idkeranjang = $(this).data('id-keranjang')
+                    let namaproduk  = $(this).data('nama-produk')
+                    $('#form_hapus_keranjang').attr('action', `/olshop/keranjang/hapus/${idkeranjang}`)
+                    $('#hapus_nama_produk').html(namaproduk)
+                })
+        
+            
 
-            </script>
-        </div>
-    </div>
+    </script>
 </body>
 
 <%- include('../../v_layout/olshop-footer') %>
-<%- include('../../v_layout/foot') %>

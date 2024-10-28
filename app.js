@@ -40,8 +40,10 @@ app.set('views', './view')
 app.get('/', c_beranda.halaman_awal)
 app.get('/auth/login' , c_auth.halaman_login)
 app.post('/auth/proses-login' , c_auth.proses_login)
+app.post('/auth/logout', cek_login, c_auth.proses_logout)
 app.get('/auth/register', c_auth.halaman_daftar)
 app.post('/auth/proses-register', c_auth.proses_register)
+
 
 // =============== App bagian v_toko ===============
 app.get('/toko', cek_login, c_toko.index)
@@ -54,7 +56,6 @@ app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produ
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
 app.get('/olshop/keranjang/input/:id_produk', cek_login, c_olshop.keranjang_input)
 app.get('/olshop/keranjang/list', cek_login, c_olshop.keranjang_list)
-app.post('/olshop/keranjang/hapus/:id_keranjang', cek_login, c_olshop.keranjang_bayar)
 app.post('/olshop/keranjang/hapus/:id_keranjang', cek_login, c_olshop.keranjang_hapus)
 app.post('/olshop/keranjang/bayar', cek_login, c_olshop.keranjang_bayar)
 
