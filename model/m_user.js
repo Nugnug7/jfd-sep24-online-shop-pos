@@ -11,5 +11,25 @@ module.exports =
             [form_email]
         )
         return eksekusi(sqlSyntax)
-    }
+    },
+
+    insert_user : function(req) {
+        let sqlData = {
+            email           : req.session.email,
+            password        : req.session.password,
+            nama_lengkap    : req.session.nama_lengkap,
+        }    
+        
+        let sqlSyntax = mysql.format (
+            `INSERT INTO user 
+             (email, password, nama_lengkap) 
+             VALUES 
+             ('?', '?', '?');`,
+
+            [sqlData]
+        )
+        return eksekusi(sqlSyntax)
+        
+    },
+
 }

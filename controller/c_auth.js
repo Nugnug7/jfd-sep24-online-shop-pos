@@ -1,5 +1,7 @@
-const bcrypt     = require('bcryptjs')
-const model_user = require('../model/m_user')
+const bcrypt        = require('bcryptjs')
+const model_user    = require('../model/m_user')
+
+
 
 module.exports = 
 {
@@ -29,11 +31,11 @@ module.exports =
                 let pesan = (`Password salah`)
                 res.redirect(`/auth/login?notif= ${pesan}`)
             }
-        } else {
-            // Tendang ke halaman register
-        let pesan = (`Email anda belum terdaftar, silahkan register lebih dulu`)
-        res.redirect(`/auth/login?notif= ${pesan}`)
-        }
+            } else {
+                // Tendang ke halaman register
+            let pesan = (`Email anda belum terdaftar, silahkan register lebih dulu`)
+            res.redirect(`/auth/login?notif= ${pesan}`)
+            }
     },
 
     cek_login: function (req,res,next) {
@@ -46,6 +48,28 @@ module.exports =
         }
     },
     
+    halaman_daftar: function(req,res) {
+        let data = {
+            notifikasi: req.query.notif,
+        }
+        res.render('v_auth/register', data)
+    },
+    
+    proses_register:  async function(req,res) {
+    // Ambil inputan dari form daftar
+    let form_email         = req.body.form_email
+    let form_password      = req.body.form_password
+    let form_namaLengkap   = req.body.form_namaLengkap
+
+    // Insert user baru ke database
+    let insert  = await model_user.insert_user(req, form_email, form_password, form_namaLengkap)
+        if (insert.affectedRows > 0) {  
+        } 
+         res.redirect(`/auth/login?notif`)
+         console.log('insert')
+
+    },
+        
 
 }
 
