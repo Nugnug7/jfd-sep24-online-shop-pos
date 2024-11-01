@@ -2,34 +2,35 @@
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <link rel="stylesheet" href="/css-tambahan/layout-register.css">
-    <main class="form-signup ms-2 p-2 w-40">
-        <form class="m-5" method="post" action="/auth/proses-register">
-          <img class="mb-2" src="/gambar/gambar.png" alt="" width="120" height="90">
+    <main class="form-signup ms-5 w-50 align-items-center">
+        <form class="m-2" method="post" action="/auth/proses-register">
+          <img class="mb-2" src="/gambar/gambar.png" alt="" width="120" height="80">
           <br>
-          <!-- Notifikasi apabila email atau password tidak sesuai -->
-          <% if (typeof notifikasi !== 'undefind' ) { %>
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              <%= notifikasi  %>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>  
-          <% } %>
+          <br>
+            <!-- Notifikasi apabila email atau password tidak sesuai -->
+            <% if (typeof notifikasi !== 'undefind' ) { %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= notifikasi  %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>  
+            <% } %>
           
-          <h1 class="h3 mt-3 mb-3 p-2 fw-normal">Form Daftar</h1>
-          <div class="form-floating p-2">
-            <input type="text" class="form-control" name="form_namaLengkap" placeholder="Nama Lengkap" required="">
+          <h1 class="h3 mt-1 mb-1 p-1 fw-normal">Form Daftar</h1>
+          <div class="form-floating p-1 ">
+            <input type="text" class="form-control" name="form_namaLengkap" placeholder="Nama Lengkap" required="true">
             <label for="floatingInput">Nama Lengkap</label>
           </div>
           <div class="form-floating p-2">
-            <input type="email" class="form-control" name="form_email" placeholder="name@example.com" required="">
+            <input type="email" class="form-control" name="form_email" placeholder="name@example.com" required="true">
             <label for="floatingInput">Alamat Email</label>
           </div>
           <div class="form-floating p-2">
-            <input type="password" class="form-control" name="form_password" placeholder="Password" required="">
+            <input type="password" class="form-control" name="form_password" placeholder="Password" required="true">
             <label for="floatingPassword">Kata Sandi</label>
           </div>
           <button class="btn btn-primary m-2" type="submit">Daftar</button>
         </form>
-        <p class="mt-2 mb-3 text-body-secondary">&copy; 2024</p>
+        <p class="mt-2 mb-5 text-body-secondary align-items-center">&copy; 2024</p>
       </main>
 
 </body>

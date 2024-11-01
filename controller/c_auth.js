@@ -1,6 +1,6 @@
 const bcrypt        = require('bcryptjs')
 const model_user    = require('../model/m_user')
-
+const { simpan_password } = require('./c_olshop')
 
 
 module.exports = 
@@ -20,7 +20,7 @@ module.exports =
         // cek email yang di input, ada di database
         let email_exist = await model_user.cari_email(form_email)
             if (email_exist.length > 0) {
-        // Cek Password
+             // Cek Password
             let password_cocok = bcrypt.compareSync(form_password, email_exist[0].password)
             if (password_cocok) {
                 // Arahkan ke halaman utama sistem
@@ -54,30 +54,62 @@ module.exports =
         })
     },
 
+    percobaan: function(req,res) {
+        let inputpassword   = req.params.inputpassword
+        let passwordhashed  = bcrypt.hashSync(inputpassword)
+        res.send(
+            `<span>inputpassword = ${inputpassword}</span><br>
+            <span>passwordhashed = ${passwordhashed}</span><br>`
+        )
+    },
+
+
     halaman_daftar: function(req,res) {
         let data = {
             notifikasi: req.query.notif,
         }
         res.render('v_auth/register', data)
     },
-    
 
     
-    proses_register:  async function(req,res) {
-    // Ambil inputan dari form daftar
-    let form_email         = req.body.form_email
-    let form_password      = req.body.form_password
-    let form_namaLengkap   = req.body.form_namaLengkap
-
-    // Insert user baru ke database
-    let insert  = await model_user.insert_user(req, form_email, form_password, form_namaLengkap)
-        if (insert.affectedRows > 0) {  
-        } 
-         res.redirect(`/auth/login?notif`)
-         console.log('insert')
-
-    },
+    proses_register: async function(req,res) {
+        // Ambil inputan dari form daftar
+        let email            = req.body.form_email
+        let password         = req.body.form_password
+        let hashPassword     = bcrypt.hashSync(password)
+        let namaLengkap      = req.body.form_namaLengkap
         
+        // Insert user baru ke database
+        try   { let insert    = await model_user.insert_user(req,email,hashPassword,namaLengkap)  
+                          
+                if (insert.affectedRows > 0) {
+                res.redirect(`/auth/login?notif=Berhasil daftar`) 
+                } 
+                
+                
+                } catch (error) {
+                     throw error
+                }
+    },
+    
+
+    simpan_password : async function(req,res) {
+            let password         = req.body.form_password
+    
+      // Insert user baru ke database
+      try   { let update    = await model_user.simpanPassword(req,password)  
+                          
+        if (update.affectedRows > 0) {
+        res.redirect(`/auth/login?notif=Berhasil Ganti Password`) 
+        } 
+        
+        
+        } catch (error) {
+             throw error
+        }
+    },
+
+
 
 }
 

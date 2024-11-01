@@ -1,7 +1,9 @@
 const mysql             = require('mysql2')
 const config_database   = require('../config/database')
+const { user_profile, simpan_password }  = require('../controller/c_olshop')
 const db                = config_database.db
 const eksekusi          = config_database.eksekusi
+const bcrypt        = require('bcryptjs')
 
 module.exports = 
 {
@@ -13,23 +15,39 @@ module.exports =
         return eksekusi(sqlSyntax)
     },
 
+
     insert_user : function(req) {
         let sqlData = {
-            email           : req.session.email,
-            password        : req.session.password,
-            nama_lengkap    : req.session.nama_lengkap,
+            email           : req.body.form_email,
+            password        : bcrypt.hashSync(req.body.form_password),
+            nama_lengkap    : req.body.form_namaLengkap,
+            //role_id         : 1,
         }    
         
         let sqlSyntax = mysql.format (
-            `INSERT INTO user 
-             (email, password, nama_lengkap) 
-             VALUES 
-             ('?', '?', '?');`,
-
+            `INSERT INTO user SET ?`,
             [sqlData]
+
         )
         return eksekusi(sqlSyntax)
         
     },
+
+    simpanPassword : function(req,res) {
+        let sqlData = {
+            password        : bcrypt.hashSync(req.body.form_password),
+            
+        }    
+        
+        let sqlSyntax = mysql.format (
+            `UPDATE user SET ?`,
+            [sqlData]
+
+        )
+        return eksekusi(sqlSyntax)
+        
+    },
+
+
 
 }

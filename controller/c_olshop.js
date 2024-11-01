@@ -4,6 +4,9 @@ const m_prod_kategori   = require('../model/m_master_produk_kategori')
 const m_master_produk   = require('../model/m_master_produk')
 const m_trans_keranjang = require('../model/m_trans_keranjang')
 const m_trans_pembelian = require('../model/m_trans_pembelian')
+const m_user            = require('../model/m_user')
+
+
 
 
 module.exports =
@@ -182,5 +185,28 @@ module.exports =
         }
     },
 
+    // User Profile
+    halaman_profile : function(req,res) {
+      
+        res.render(`v_olshop/UserProfile/uProfile`)
+    },
+
+    // Ganti Password
+    halaman_password : function(req,res) {
+
+    res.render('v_olshop/UserProfile/hal_gantiPasswordProfile')
+
+    },
+
+    simpan_password : function (req,res) {
+
+        
+    }
 
 }
+
+
+    
+
+    
+    

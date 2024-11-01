@@ -60,6 +60,8 @@
                                             </button>
                                             <!----------- Drop down produk di proses --------->
                                             <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><span class="dropdown-item">Produk yang sedang diproses oleh penjual</span></li>
+                                                <li><hr class="dropdown-divider"></li>
                                                 <li>
                                                     <% for(let i in detailProduk_diProses) { %>
                                                         <div class="dropdown-item">
@@ -94,11 +96,11 @@
                                     </form>
                                 </li>
                                 <!-------------------- Nama Session User ---------------->
-                                <li class="nav-item ms-4">
-                                    <a class="nav-link" href="#">
+                                <li class="nav-item ms-4">  
+                                    <a class="nav-link" href="/olshop/UserProfile/uProfile">
                                         <i class="fa-solid fa-circle-user me-1"></i>
                                         <span><%= req.session.user[0].nama_lengkap %></span>
-                                    </a>
+                                    </a>   
                                 </li>
                             </ul>
                     </div>
