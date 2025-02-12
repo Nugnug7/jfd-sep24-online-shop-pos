@@ -1,23 +1,27 @@
 const bcrypt        = require('bcryptjs')
 const model_user    = require('../model/m_user')
-const { simpan_password } = require('./c_olshop')
+
 
 
 module.exports = 
 {
     halaman_login: function(req,res) {
-        let data = {
-            notifikasi: req.query.notif,
+        if (req.session.user) {
+            res.redirect('/toko')
+        } else {
+            let data = {
+                notifikasi: req.query.notif,
+            }
+            res.render('v_auth/login', data)
         }
-        res.render('v_auth/login', data)
     },
-    
+   
     proses_login: async function(req,res) {
         // ambil inputan dari form login
         let form_email = req.body.form_email
         let form_password = req.body.form_password
 
-        // cek email yang di input, ada di database
+        // cek email yang di input, ada di database atau tidak.
         let email_exist = await model_user.cari_email(form_email)
             if (email_exist.length > 0) {
              // Cek Password
@@ -94,15 +98,14 @@ module.exports =
     
 
     simpan_password : async function(req,res) {
-            let password         = req.body.form_password
+            let password       = req.body.form_password
     
-      // Insert user baru ke database
+      // update password baru ke database
       try   { let update    = await model_user.simpanPassword(req,password)  
                           
         if (update.affectedRows > 0) {
         res.redirect(`/auth/login?notif=Berhasil Ganti Password`) 
         } 
-        
         
         } catch (error) {
              throw error

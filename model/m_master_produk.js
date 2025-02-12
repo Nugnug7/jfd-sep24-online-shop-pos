@@ -28,7 +28,6 @@ module.exports =
         return eksekusi( sqlSyntax )
     },
 
-
     insert: function(req, filename_foto1, filename_foto2, filename_foto3 ) {
         let sqlData = {
             nama            : req.body.form_nama,

@@ -5,7 +5,7 @@ const db = mysql.createConnection ({
     host        : 'localhost',
     user        : 'root',
     password    : '',
-    database    : 'db_sep2024_jdf',
+    database    : 'db_jdf_sep24',
 })
 
 // Buka koneksi Database

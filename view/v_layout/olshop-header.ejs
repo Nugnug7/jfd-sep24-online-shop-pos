@@ -27,11 +27,16 @@
                     <!---------------------- Kategori dan kolom search --------------->
                     <div class="float-end">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                <% if (req.session.user[0].role_id == 1) { %>
+                                <% if (req.session.user[0].role_id == 2) { %>
                                     <li class="nav-item mx-1">
                                         <!------- Icon Dollar atau Wallet ------->
-                                        <a class="nav-link" href="#">
-                                            <i class="fa-solid fa-sack-dollar"></i>
+                                        <a class="nav-link position-relative" href="/olshop/keranjang/list">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            <% if (produk_diKeranjang[0].jumlah > 0) { %>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    <%= produk_diKeranjang[0].jumlah %>
+                                                </span>
+                                            <% } %>
                                         </a>
                                     </li>
                                 <% } %>
@@ -60,7 +65,7 @@
                                             </button>
                                             <!----------- Drop down produk di proses --------->
                                             <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><span class="dropdown-item">Produk yang sedang diproses oleh penjual</span></li>
+                                                <li><span class="dropdown-item">Pesanan sedang diproses oleh penjual</span></li>
                                                 <li><hr class="dropdown-divider"></li>
                                                 <li>
                                                     <% for(let i in detailProduk_diProses) { %>
@@ -78,12 +83,67 @@
                                             </ul>
                                         </div>
                                     </li>
+
+
+                                    <li class="nav-item mx-1">
+                                        <div class="dropdown">
+                                            <button class="nav-link position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-truck"></i>
+                                                <% if (produk_diKirim[0].jumlah > 0) { %>
+                                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                        <%= produk_diKirim[0].jumlah %>
+                                                    </span>
+                                                <% } %>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <span class="dropdown-item">Pesanan sedang dikirim oleh kurir</span>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <a href="#" class="btn btn-sm btn-success"
+                                                            onclick="return confirm('Konfirmasi pesanan sudah diterima dengan baik ??')">
+                                                                Pesanan diterima
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <% for(let i in detailProduk_diKirim) { %>
+                                                        <div class="dropdown-item">
+                                                            <table>
+                                                                <tr>
+                                                                    <td><%= detailProduk_diKirim[i].produk_nama %> (<%= detailProduk_diKirim[i].qty %>)</td>
+                                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                                    <td class="text-end">Rp <%= Number(detailProduk_diKirim[i].harga).toLocaleString('id-ID') %></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    <% } %>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
                                 <% } %>
 
                                 <% if (req.session.user[0].role_id == 1) { %>
                                     <li class="nav-item mx-1">
                                         <a href="/olshop/produk" class="nav-link">
                                             <i class="fa-solid fa-boxes-stacked me-1"></i> Produk Saya
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item mx-1">
+                                        <a class="nav-link position-relative" href="/olshop/orderan-masuk/list">
+                                            <i class="fa-solid fa-sack-dollar"></i>
+                                            <% if (orderanMasuk[0].jumlah > 0) { %>
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                    <%= orderanMasuk[0].jumlah %>
+                                                </span>
+                                            <% } %>
                                         </a>
                                     </li>
                                 <% } %>
@@ -118,8 +178,13 @@
                     </div>
                 <% } %>
             </div>
+            <pre>
+                <%= JSON.stringify(orderanMasuk, null, 4) %>
+            </pre>
+
         </div>
-</div>
+    </div>
+</header>
 
 
                     
