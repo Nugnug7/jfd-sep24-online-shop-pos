@@ -133,10 +133,21 @@ module.exports =
             produk_diKirim          : await m_trans_pembelian.getJumlahProduk_diKirim(req),
             detailProduk_diKirim    : await m_trans_pembelian.getDetailProduk_diKirim(req),
             moment                  : moment,
-
-
         }
         res.render('v_olshop/produk/detail', data)
+    },
+
+     // Proses tombol hapus produk
+     hapus_produk: async function(req,res) {
+        try {
+            let hapusData = await m_master_produk.hapus(req)
+            if (hapusData.affectedRows > 0) {
+                res.redirect(`/olshop/produk?notif=Berhasil hapus produk dari Produk Saya`)
+            }
+            } catch (error) {
+            res.redirect(`/olshop/produk?notif=${error.message}`)
+            }  
+      
     },
 
     keranjang_input: async function(req,res) {
@@ -165,7 +176,6 @@ module.exports =
         orderanMasuk            : await m_trans_pembelian.getJumlahOrderanMasuk(),
         produk_diKirim          : await m_trans_pembelian.getJumlahProduk_diKirim(req),
         detailProduk_diKirim    : await m_trans_pembelian.getDetailProduk_diKirim(req),
-        
         }
         res.render('v_olshop/keranjang/list', data)
     },   

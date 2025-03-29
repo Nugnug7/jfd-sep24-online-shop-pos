@@ -51,4 +51,12 @@ module.exports =
         return eksekusi( sqlSyntax )
     },
 
+    hapus: function(req) {
+        let sqlSyntax = mysql.format(
+            `DELETE FROM master_produk WHERE id = ?`,
+            [req.params.id_produk]
+        )
+        return eksekusi( sqlSyntax )
+    },
+
 }

@@ -48,13 +48,13 @@ app.get('/percobaan-hash-password/:inputpassword', c_auth.percobaan)
 // =============== App bagian v_toko ===============
 app.get('/toko', cek_login, c_toko.index)
 
-
 // ============== App bagian v_olshop =============
 app.get('/olshop', cek_login, c_olshop.halaman_beranda)
 app.get('/olshop/produk', cek_login, c_olshop.halaman_index_produk)
 app.get('/olshop/produk/tambah', cek_login, c_olshop.halaman_form_tambah)
 app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produk)
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
+app.get('/olshop/produk/hapus/:id_produk', cek_login, c_olshop.hapus_produk)
 app.get('/olshop/keranjang/input/:id_produk', cek_login, c_olshop.keranjang_input)
 app.get('/olshop/keranjang/list', cek_login, c_olshop.keranjang_list)
 app.post('/olshop/keranjang/hapus/:id_keranjang', cek_login, c_olshop.keranjang_hapus)
