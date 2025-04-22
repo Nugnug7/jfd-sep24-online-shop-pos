@@ -1,6 +1,14 @@
 html,
 body {
   height: 100%;
+  background-color: aliceblue;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  box-shadow: none;
+
+}
+
+.imgLogin {
+ 
 }
 
 .form-signin {
@@ -23,3 +31,5 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+

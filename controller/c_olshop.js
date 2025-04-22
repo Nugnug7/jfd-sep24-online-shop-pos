@@ -119,7 +119,7 @@ module.exports =
         }
     },
      
-     // Proses tombol detail produk
+    // Proses tombol detail produk
     detail_produk: async function(req,res) {
         let id          = req.params.id_produk
         let data        = {
@@ -137,8 +137,21 @@ module.exports =
         res.render('v_olshop/produk/detail', data)
     },
 
-     // Proses tombol hapus produk
-     hapus_produk: async function(req,res) {
+    // Proses tombol edit produk
+    edit_produk: async function(req,res) {
+        try {
+            let editData = await m_master_produk.edit(req)
+            if (editData.affectedRows > 0) {
+                res.redirect(`/olshop/produk/detail/:id_produk?notif=Berhasil di update produk dari Produk Saya`)
+            }
+            } catch (error) {
+            res.redirect(`/olshop/produk/detail/:id_produk?notif=${error.message}`)
+            }  
+      
+    },
+
+    // Proses tombol hapus produk
+    hapus_produk: async function(req,res) {
         try {
             let hapusData = await m_master_produk.hapus(req)
             if (hapusData.affectedRows > 0) {
@@ -225,7 +238,6 @@ module.exports =
     },
 
     simpan_password : function (req,res) {
-
         
     },
 

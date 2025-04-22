@@ -1,33 +1,34 @@
 <%- include('../v_layout/head') %>
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+<body class="d-flex align-items-center py-4">
     <link rel="stylesheet" href="/css-tambahan/layout-login.css">
-    <main class="form-signin w-100 m-auto">
-        <form method="post" action="/auth/proses-login">
-            <img class="mb-4" src="/gambar/gambar.png" alt="" width="120" height="90">
-            <br>
-            <!-- Notifikasi apabila username atau password tidak sesuai -->
-                <% if (typeof notifikasi !== 'undefind' ) { %>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <main class="form-signin w-100 m-auto justify-center align-items-center">
+              <form method="post" action="/auth/proses-login">
+                <img class="imgLogin mb-4 justify-center align-items-center" src="/gambar/sonic.png" alt="" width="120" height="90">
+                <br>
+                <!-- Notifikasi apabila username atau password tidak sesuai -->
+                <% if (typeof notifikasi !== 'undefind' && notifikasi) { %>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <%= notifikasi  %>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>  
+                  </div>  
                 <% } %>
-            <h1 class="h3 mt-3 mb-3 fw-normal">Silahkan masuk</h1>
+                   
 
-            <div class="form-floating">
-              <input type="email" class="form-control" name="form_email" placeholder="name@example.com">
-              <label for="floatingInput">Alamat Email</label>
-            </div>
-            <div class="form-floating">
-              <input type="password" class="form-control" name="form_password" placeholder="Password">
-              <label for="floatingPassword">Kata Sandi</label>
-            </div>
-            
-            <button class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
-          </form>
-      </main>
+                <h1 class="h3 mt-3 mb-3 fw-normal">Silahkan masuk</h1>
+                <div class="form-floating">
+                  <input type="email" class="form-control" name="form_email" placeholder="name@example.com">
+                  <label for="floatingInput">Alamat Email</label>
+                </div>
+                <div class="form-floating">
+                  <input type="password" class="form-control" name="form_password" placeholder="Password">
+                  <label for="floatingPassword">Kata Sandi</label>
+                </div>
+                
+                <button class="btn btn-primary w-100 py-2" type="submit">Masuk</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+              </form>
+        </main>
 </body>
 
 <%- include('../v_layout/foot') %>

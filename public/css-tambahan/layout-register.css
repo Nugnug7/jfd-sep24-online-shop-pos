@@ -76,7 +76,17 @@ z-index: 1500;
 display: block !important;
 }
 
+body {
+    
+    height: 100vh;
+  }
 
 .container {
     max-width: 960px;
+}
+
+.form-sigup {
+    max-width: 400px;
+    text-align: center;
+    justify-content: center;
 }

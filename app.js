@@ -4,6 +4,7 @@ const port          = 3000
 const cookieParser  = require('cookie-parser')
 const session       = require('express-session')
 const fileupload    = require('express-fileupload')
+const flash         = require('connect-flash');
 const c_beranda     = require('./controller/c_beranda')
 const c_auth        = require('./controller/c_auth')
 const cek_login     = c_auth.cek_login
@@ -24,12 +25,22 @@ app.use(session({
         // 1000 milidetik * 60 = 1 menit
         // 1 menit * 30 = 1/2 jam
     }
-}))
+}));
+
+// Settingan flash message
+app.use(flash());
+
+// Biarkan flash bisa dipakai di semua EJS
+app.use((req, res, next) => {
+  res.locals.messages = req.flash();
+  next();
+});
 
 // =============== App bagian framework, libary ===============
 app.use(express.urlencoded({extended:false}))
 app.use(express.static('public'))
 app.use(fileupload())
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs')
 app.set('views', './view')
@@ -54,6 +65,7 @@ app.get('/olshop/produk', cek_login, c_olshop.halaman_index_produk)
 app.get('/olshop/produk/tambah', cek_login, c_olshop.halaman_form_tambah)
 app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produk)
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
+app.get('/olshop/produk/edit/:id_produk', cek_login, c_olshop.edit_produk)
 app.get('/olshop/produk/hapus/:id_produk', cek_login, c_olshop.hapus_produk)
 app.get('/olshop/keranjang/input/:id_produk', cek_login, c_olshop.keranjang_input)
 app.get('/olshop/keranjang/list', cek_login, c_olshop.keranjang_list)

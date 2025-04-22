@@ -53,7 +53,15 @@ module.exports =
 
     hapus: function(req) {
         let sqlSyntax = mysql.format(
-            `DELETE FROM master_produk WHERE id = ?`,
+            `Update FROM master_produk WHERE id = ?`,
+            [req.params.id_produk]
+        )
+        return eksekusi( sqlSyntax )
+    },
+
+    edit: function(req) {
+        let sqlSyntax = mysql.format(
+            `Update FROM master_produk WHERE id = ?`,
             [req.params.id_produk]
         )
         return eksekusi( sqlSyntax )

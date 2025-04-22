@@ -2,26 +2,25 @@
  * Globals
  */
 
-
 /* Custom default button */
 .btn-light,
 .btn-light:hover,
 .btn-light:focus {
-  color: #333;
+  color: #0f0e0e;
   text-shadow: none; /* Prevent inheritance from `body` */
 }
-
 
 /*
  * Base structure
  */
 
 body {
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  text-shadow: 0 .05rem .1rem rgb(12, 12, 12);
+  box-shadow: inset 0 0 5rem rgb(20, 20, 20);
+  
 }
 
-.cover-container {
+.cover-container {S
   max-width: 42em;
 }
 
@@ -31,13 +30,13 @@ body {
  */
 
 .nav-masthead .nav-link {
-  color: rgba(255, 255, 255, .5);
+  color: rgba(250, 243, 243, 0.5);
   border-bottom: .25rem solid transparent;
 }
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, .25);
+  border-bottom-color: rgba(239, 237, 237, 0.25);
 }
 
 .nav-masthead .nav-link + .nav-link {
@@ -45,11 +44,11 @@ body {
 }
 
 .nav-masthead .active {
-  color: #fff;
-  border-bottom-color: #fff;
+  color: #fbf6f6;
+  border-bottom-color: #f0eded;
 }
 
-/* script css untuk halaman beranda */
+/* script css untuk halaman beranda login*/
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -67,10 +66,10 @@ body {
   .b-example-divider {
     width: 100%;
     height: 3rem;
-    background-color: rgba(0, 0, 0, .1);
-    border: solid rgba(0, 0, 0, .15);
+    background-color: rgb(245, 240, 240);
+    border: solid rgb(20, 19, 19);
     border-width: 1px 0;
-    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    box-shadow: inset 0 .5em 1.5em rgb(1, 0, 0), inset 0 .125em .5em rgba(15, 15, 15, 0.983);
   }
 
   .b-example-vr {
