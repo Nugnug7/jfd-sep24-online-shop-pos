@@ -15,8 +15,10 @@
  */
 
 body {
-  text-shadow: 0 .05rem .1rem rgb(12, 12, 12);
-  box-shadow: inset 0 0 5rem rgb(20, 20, 20);
+  
+  box-shadow: inset 0 0 5rem rgb(10, 109, 223);
+  background-image: url(/gambar/bgshopping.jpg);
+  background-size: cover;
   
 }
 
@@ -124,4 +126,22 @@ body {
 
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
+  }
+
+  .h1_homepage {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0f0e0e;
+    padding-bottom: 50px;
+  }
+
+  .lead {
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-weight: bold;
+    color: #0f0e0e;
+  }
+  .cover-heading {
+    font-size: 2.5rem;
+    font-weight: 300;
   }

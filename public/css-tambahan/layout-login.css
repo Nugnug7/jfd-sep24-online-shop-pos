@@ -1,8 +1,8 @@
 html,
 body {
   height: 100%;
-  background-color: aliceblue;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background-color: rgb(141, 188, 230);
+  background: linear-gradient(to right, #73aed3, #f1f3f5);
   box-shadow: none;
 
 }
